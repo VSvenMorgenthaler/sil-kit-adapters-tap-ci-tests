@@ -8,8 +8,7 @@
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/_build/${presetName}",
             "installDir": "${sourceDir}/_install/${presetName}",
-            "cacheVariables": {
-                "SILKIT_PACKAGE_DIR": "/mnt/d/vfs/SilKit/SilKit-4.0.19-ubuntu-18.04-x86_64-gcc",
+            "cacheVariables": {                
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++"
             },
