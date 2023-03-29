@@ -1,32 +1,17 @@
 name: 'Linux Release Build'
-
-# on:
-#   push:
-#     tags:
-#       - "v*.*.*"
-
 on:
   push:
     branches: [ "ci-tryouts" ]
-
 jobs:
   linux-release:
     name: Build SIL Kit TAP for Release configuration
     environment: public-github-runners
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-      - name: Build
-        uses: ./.github/actions/build-cmake-preset
-        with:
-          preset-name: linux-release
-      # - name: Release
-      #   uses: softprops/action-gh-release@v1
-      #   #if: startsWith(github.ref, 'refs/tags/')
-      #   with:
-      #     prerelease: true
-      #     draft: true          
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - uses: ./.github/actions/build-cmake-preset
+      with:
+        preset-name: linux-release   
 
