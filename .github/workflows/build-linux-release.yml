@@ -25,6 +25,6 @@ jobs:
           prerelease: true
           draft: true
           files: |
-            _build/bin/*
+            _build/linux-release/bin/*
             
           
