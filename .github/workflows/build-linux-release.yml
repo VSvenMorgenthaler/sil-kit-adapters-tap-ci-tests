@@ -24,4 +24,7 @@ jobs:
         with:
           prerelease: true
           draft: true
+          files: |
+            _build/bin/*
+            
           
