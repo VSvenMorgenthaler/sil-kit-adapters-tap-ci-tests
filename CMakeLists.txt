@@ -131,6 +131,6 @@ set(CPACK_PACKAGE_DESCRIPTION "binary release of SIL Kit Adapters TAP")
 set(CPACK_PACKAGE_NAME "SilKit-Adapters-TAP")
 set(CPACK_PACKAGE_VENDOR "Vector Informatik")
 set(CPACK_PACKAGE_CONTACT "support@vector.com")
-set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-ubuntu-20.04-x86_64-gcc")
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${SILKIT_ADATPERS_TAG_VERSION}-ubuntu-20.04-x86_64-gcc")
 
 include(CPack)
