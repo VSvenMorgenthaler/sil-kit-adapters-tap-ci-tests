@@ -25,6 +25,6 @@ jobs:
           prerelease: true
           draft: true
           files: |
-            _build/linux-release/bin/*
+            _build/linux-release/SilKit-Adapters*.zip
             
           

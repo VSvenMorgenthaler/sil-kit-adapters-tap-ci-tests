@@ -28,4 +28,9 @@ runs:
       id: cmake-build
       run: cmake --build --preset ${{ inputs.preset-name }}
       shell: bash
+      
+    - name: Pack ${{ inputs.preset-name }}
+      id: cmake-pack
+      run: cmake --build --preset ${{ inputs.preset-name }} --target package
+      shell: bash
 
