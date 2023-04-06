@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(SILKIT_ADAPTERS_TAP_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 
+set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
+
 find_package(Threads REQUIRED)
 add_library(asio INTERFACE)
 target_include_directories(asio INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/third_party/asio/asio/include)
