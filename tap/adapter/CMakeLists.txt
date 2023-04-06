@@ -1,4 +1,6 @@
 
+set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
+
 add_executable(SilKitAdapterTap
     "SilKitAdapterTap.cpp"
     "Parsing.cpp")

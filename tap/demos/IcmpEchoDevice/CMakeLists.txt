@@ -1,3 +1,4 @@
+set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
 
 add_executable(SilKitDemoEthernetIcmpEchoDevice
     "SilKitDemoEthernetIcmpEchoDevice.cpp"
@@ -12,4 +13,3 @@ target_link_libraries(SilKitDemoEthernetIcmpEchoDevice
 set_target_properties(SilKitDemoEthernetIcmpEchoDevice PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY $<$<BOOL:ALWAYS>:${SILKIT_ADAPTERS_TAP_OUTPUT_DIRECTORY}>
 )
-
