@@ -1,5 +1,3 @@
-set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
-
 add_executable(SilKitDemoEthernetIcmpEchoDevice
     "SilKitDemoEthernetIcmpEchoDevice.cpp"
     Device.hpp
@@ -10,6 +8,10 @@ target_link_libraries(SilKitDemoEthernetIcmpEchoDevice
         Utility
         SilKit::SilKit
 )
-set_target_properties(SilKitDemoEthernetIcmpEchoDevice PROPERTIES
+set_target_properties(SilKitDemoEthernetIcmpEchoDevice 
+    PROPERTIES
+    #ensure SilKit shared libraries can be loaded
+    INSTALL_RPATH "$ORIGIN"
+    BUILD_RPATH "$ORIGIN"
     RUNTIME_OUTPUT_DIRECTORY $<$<BOOL:ALWAYS>:${SILKIT_ADAPTERS_TAP_OUTPUT_DIRECTORY}>
 )

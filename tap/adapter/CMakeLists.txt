@@ -1,6 +1,3 @@
-
-set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
-
 add_executable(SilKitAdapterTap
     "SilKitAdapterTap.cpp"
     "Parsing.cpp")
@@ -10,7 +7,11 @@ target_link_libraries(SilKitAdapterTap
         asio
         SilKit::SilKit
 )
-set_target_properties(SilKitAdapterTap PROPERTIES
+set_target_properties(SilKitAdapterTap 
+    PROPERTIES
+    #ensure SilKit shared libraries can be loaded
+    INSTALL_RPATH "$ORIGIN"
+    BUILD_RPATH "$ORIGIN"
     RUNTIME_OUTPUT_DIRECTORY $<$<BOOL:ALWAYS>:${SILKIT_ADAPTERS_TAP_OUTPUT_DIRECTORY}>
 )
 add_custom_command(
