@@ -16,41 +16,48 @@ target_include_directories(asio INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/third_part
 target_compile_definitions(asio INTERFACE ASIO_STANDALONE=1)
 target_link_libraries(asio INTERFACE Threads::Threads)
 
-if(NOT SILKIT_PACKAGE_DIR)
-    FetchContent_Declare(
-        silkit
-        URL https://github.com/vectorgrp/sil-kit/releases/download/sil-kit%2Fv4.0.17/SilKit-4.0.17-ubuntu-18.04-x86_64-gcc.zip
-        DOWNLOAD_DIR ${CMAKE_CURRENT_LIST_DIR}/Downloads
-        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-    )
-
-    message(STATUS "SIL Kit: fetching: silkit")
-    FetchContent_MakeAvailable(silkit)
-
-    message(STATUS "SIL Kit: using source code from: \"${silkit_SOURCE_DIR}\"")
-    set(SILKIT_SOURCE_DIR ${silkit_SOURCE_DIR}/SilKit-Source)
-    message(STATUS "SIL Kit: using pre-built binaries from: ${silkit_SOURCE_DIR}")
+if(NOT SILKIT_PACKAGE_DIR)    
+    message(STATUS "SILKIT_PACKAGE_DIR has not been set by user. Attempting to find an installed version of SIL Kit")
 
     find_package(SilKit 4.0.7
-        HINTS ${silkit_SOURCE_DIR}
-        REQUIRED
+        CONFIG
     )
 
-    if(NOT TARGET SilKit::SilKit)
-        message(FATAL_ERROR "Could not find SilKit package by fetching it from github.com")
+    if(NOT SilKit_FOUND)
+        FetchContent_Declare(
+                silkit
+                URL https://github.com/vectorgrp/sil-kit/releases/download/sil-kit%2Fv${SILKIT_VERSION}/SilKit-${SILKIT_VERSION}-${SILKIT_FLAVOUR}.zip
+                DOWNLOAD_DIR ${CMAKE_CURRENT_LIST_DIR}/Downloads
+                DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+            )
+
+        message(STATUS "SIL Kit: fetching: silkit")
+        FetchContent_MakeAvailable(silkit)
+
+        message(STATUS "SIL Kit: using source code from: \"${silkit_SOURCE_DIR}\"")
+        set(SILKIT_SOURCE_DIR ${silkit_SOURCE_DIR}/SilKit-Source)
+        message(STATUS "SIL Kit: using pre-built binaries from: ${silkit_SOURCE_DIR}")
+
+        message(STATUS "Searching SilKit package which has been fetched from github.com")
+        find_package(SilKit 4.0.7
+            HINTS ${silkit_SOURCE_DIR}
+            REQUIRED
+        )
     endif()
+
+else()
+    message(STATUS "Searching SilKit package in ${SILKIT_PACKAGE_DIR}")
+    find_package(SilKit 4.0.7
+        REQUIRED
+        CONFIG
+        NO_CMAKE_PACKAGE_REGISTRY
+        NO_DEFAULT_PATH
+        PATHS "${SILKIT_PACKAGE_DIR}"
+    )
 endif()
 
-message(STATUS "Searching SilKit package in ${SILKIT_PACKAGE_DIR}")
-find_package(SilKit 4.0.7
-    REQUIRED
-    CONFIG
-    NO_CMAKE_PACKAGE_REGISTRY
-    NO_DEFAULT_PATH
-    PATHS "${SILKIT_PACKAGE_DIR}"
-)
 if(NOT TARGET SilKit::SilKit)
-    message(FATAL_ERROR "Could not find SilKit package in ${SILKIT_PACKAGE_DIR}")
+    message(FATAL_ERROR "Could not find SilKit package")
 endif()
 
 add_subdirectory(tap/Utility)
@@ -133,6 +140,6 @@ set(CPACK_PACKAGE_DESCRIPTION "binary release of SIL Kit Adapters TAP")
 set(CPACK_PACKAGE_NAME "SilKit-Adapters-TAP")
 set(CPACK_PACKAGE_VENDOR "Vector Informatik")
 set(CPACK_PACKAGE_CONTACT "support@vector.com")
-set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${SILKIT_ADATPERS_TAG_VERSION}-ubuntu-20.04-x86_64-gcc")
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${PACKAGE_FILENAME_SUFFIX}")
 
 include(CPack)

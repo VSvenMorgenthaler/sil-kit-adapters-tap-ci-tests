@@ -10,7 +10,9 @@
             "installDir": "${sourceDir}/_install/${presetName}",
             "cacheVariables": {                
                 "CMAKE_C_COMPILER": "gcc",
-                "CMAKE_CXX_COMPILER": "g++"
+                "CMAKE_CXX_COMPILER": "g++",
+                "SILKIT_VERSION": "4.0.17",
+                "SILKIT_FLAVOUR": "ubuntu-18.04-x86_64-gcc"
             },
             "condition": {
                 "type": "equals",
@@ -29,7 +31,7 @@
             "displayName": "Linux Debug",            
             "inherits": "linux-base",            
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug"                
             }            
         },
         {
